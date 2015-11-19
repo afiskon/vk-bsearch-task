@@ -36,7 +36,8 @@ int main(int argc, char** argv) {
 		return 2;
 	}
 
-	for(int i = 0; i < array_size; ++i) {
+	int i;
+	for(i = 0; i < array_size; ++i) {
 		array[i] = atoi(argv[i+2]);
 	}
 
