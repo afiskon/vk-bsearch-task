@@ -5,7 +5,8 @@
 int vk_bsearch(const int *array, const int start_idx, const int end_idx, const int value) {
 	assert(array != NULL);
 	assert(start_idx >= 0);
-	assert(end_idx >= start_idx);
+	assert(start_idx <= end_idx);
+	assert(array[start_idx] <= array[end_idx]);
 
 	if(start_idx == end_idx) {
 		if(array[start_idx] > value) return start_idx;
@@ -13,14 +14,15 @@ int vk_bsearch(const int *array, const int start_idx, const int end_idx, const i
 	}
 
 	const int check_idx = (start_idx + end_idx) / 2;
-	if(array[check_idx] <= value) {
-		// return vk_bsearch(array, )
-		return -1; // TODO
+	assert(array[start_idx] <= array[check_idx]);
+	assert(array[check_idx] <= array[end_idx]);
+
+	if(array[check_idx] > value) {
+		return vk_bsearch(array, start_idx, check_idx, value);
 	} else {
-		return vk_bsearch(array, check_idx, end_idx, value);
+		return vk_bsearch(array, check_idx+1, end_idx, value);
 	}
 }
-
 
 int main(int argc, char** argv) {
 	if(argc <= 2) {
